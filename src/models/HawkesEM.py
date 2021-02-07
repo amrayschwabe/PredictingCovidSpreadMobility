@@ -114,36 +114,34 @@ def precomputeKernelPDF(
             for j in range(i):
                 if i - j == 1:
                     kernelPDF[i, j] = weibull_min.cdf(
-                        i - j + 0.5, c=2.453, scale=6.258
-                    ) - weibull_min.cdf(i - j - 1, c=2.453, scale=6.258)
+                        i - j + 0.5, c=alpha, scale=beta
+                    ) - weibull_min.cdf(i - j - 1, c=alpha, scale=beta)
                 else:
                     kernelPDF[i, j] = weibull_min.cdf(
-                        i - j + 0.5, c=2.453, scale=6.258
-                    ) - weibull_min.cdf(i - j - 0.5, c=2.453, scale=6.258)
+                        i - j + 0.5, c=alpha, scale=beta
+                    ) - weibull_min.cdf(i - j - 0.5, c=alpha, scale=beta)
     elif config.incubationDistribution == "gamma":
         for i in range(nrTrainingDays):
             for j in range(i):
                 if i - j == 1:
                     kernelPDF[i, j] = gamma.cdf(
-                        i - j + 0.5, a=5.807, scale=0.948
-                    ) - gamma.cdf(i - j - 1, a=5.807, scale=0.948)
+                        i - j + 0.5, a=alpha, scale=beta
+                    ) - gamma.cdf(i - j - 1, a=alpha, scale=beta)
                 else:
                     kernelPDF[i, j] = gamma.cdf(
-                        i - j + 0.5, a=5.807, scale=0.948
-                    ) - gamma.cdf(i - j - 0.5, a=5.807, scale=0.948)
+                        i - j + 0.5, a=alpha, scale=beta
+                    ) - gamma.cdf(i - j - 0.5, a=alpha, scale=beta)
     elif config.incubationDistribution == "lognormal":
-        sigma = 0.418
-        mu = 1.621
         for i in range(nrTrainingDays):
             for j in range(i):
                 if i - j == 1:
                     kernelPDF[i, j] = lognorm.cdf(
-                        i - j + 0.5, s=sigma, scale=np.exp(mu)
-                    ) - lognorm.cdf(i - j - 1, s=sigma, scale=np.exp(mu))
+                        i - j + 0.5, s=alpha, scale=beta
+                    ) - lognorm.cdf(i - j - 1, s=alpha, scale=beta)
                 else:
                     kernelPDF[i, j] = lognorm.cdf(
-                        i - j + 0.5, s=sigma, scale=np.exp(mu)
-                    ) - lognorm.cdf(i - j - 0.5, s=sigma, scale=np.exp(mu))
+                        i - j + 0.5, s=alpha, scale=beta
+                    ) - lognorm.cdf(i - j - 0.5, s=alpha, scale=beta)
     elif config.incubationDistribution == "normal":
         for i in range(nrTrainingDays):
             for j in range(i):
